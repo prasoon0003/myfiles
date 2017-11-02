@@ -1,0 +1,29 @@
+//import org.apache.spark.SparkConf
+//import org.apache.spark.streaming.{Seconds, StreamingContext}
+//import scala.collection.mutable.ArrayBuffer
+
+//import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
+import org.apache.spark.streaming._
+
+object CountFatal {
+	def main(args: Array[String]):  Unit ={
+
+		val conf = new SparkConf().setAppName("CountFatal").setMaster("local[2]")
+		val ssc = new StreamingContext(conf, Seconds(20))
+		val lines = ssc.socketTextStream("localhost", 9999)
+
+		val words = lines.flatMap(_.split(" "))
+
+		val fatalWords = words.filter(x => x.contains("FATAL")).count
+		println("FATAL words count is: " + fatalWords)
+
+		ssc.start()
+		ssc.awaitTermination()
+
+
+
+	}
+
+}
+
