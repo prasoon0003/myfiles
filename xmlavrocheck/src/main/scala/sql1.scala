@@ -14,7 +14,7 @@ object sql1{
     println("--->converting to avro format*****")
    sd.write.format("com.databricks.spark.avro").save("file:///home/edureka/Desktop/avrofile11")
   //dataframe.write.format("com.databricks.spark.avro").save(outputPath)
-    
+    //trying adding comment to see change in github the 
   }  
 }
 
